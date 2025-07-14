@@ -1,2 +1,36 @@
-# MediAI-Disease-Predictor
-An AI-powered web application that predicts possible diseases based on symptoms provided by the user using machine learning classification algorithms. This project applies Python, Scikit-learn, and Flask to create a lightweight and interactive health assistant
+# 🧠 MediAI – Disease Predictor
+
+A Machine Learning-based web application to predict potential diseases based on user-inputted symptoms.
+
+## 📌 Objective
+
+Build a reliable AI assistant to assist users in identifying possible illnesses by inputting symptoms. This can help users decide whether to consult a medical professional based on predicted conditions.
+
+---
+
+## 🔧 Tech Stack
+
+- Python
+- Flask
+- Scikit-learn
+- Pandas, NumPy
+- HTML/CSS
+- Bootstrap (optional for styling)
+
+---
+
+## 🚀 Features
+
+- Input common symptoms via UI
+- Disease prediction using ML models (e.g., Decision Tree, Naive Bayes)
+- User-friendly interface
+- Lightweight and fast
+- Customizable disease dataset
+
+---
+
+## 👩‍💻 Contributor
+
+- [@madhuragolu](https://github.com/madhuragolu)
+
+
