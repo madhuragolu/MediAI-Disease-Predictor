@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediAI Disease Predictor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .select2-container--default .select2-selection--multiple {
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body class="bg-white text-black">
+
+  <section class="py-20 bg-blue-50 text-center">
+    <h1 class="text-4xl font-bold mb-4">🧠 MediAI Disease Predictor</h1>
+    <p class="text-lg text-gray-600">Get instant insights about your health with our AI-powered tool.</p>
+  </section>
+
+  
+  <section id="symptom-checker" class="py-20 bg-gray-100">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">Symptom Checker</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Describe your symptoms and get AI-powered insights into potential conditions.
+        </p>
+      </div>
+
+    
+      <form id="symptomForm" action="/predict" method="POST" class="max-w-3xl mx-auto bg-white shadow-lg p-8 rounded-xl space-y-6">
+        <div>
+          <label for="symptom1" class="block font-semibold mb-2">Select Your Symptoms</label>
+          <select id="symptom1" name="symptoms" multiple class="w-full">
+            <option>rusty_sputum</option>
+              <option>coma</option>
+              <option>muscle_pain</option>
+              <option>skin_rash</option>
+              <option>joint_pain</option>
+              <option>spinning_movements</option>
+              <option>pain_during_bowel_movements</option>
+              <option>puffy_face_and_eyes</option>
+              <option>abnormal_menstruation</option>
+              <option>mild_fever</option>
+              <option>loss_of_smell</option>
+              <option>blackheads</option>
+              <option>palpitations</option>
+              <option>fluid_overload</option>
+              <option>extra_marital_contacts</option>
+              <option>yellow_urine</option>
+              <option>blurred_and_distorted_vision</option>
+              <option>lack_of_concentration</option>
+              <option>chills</option>
+              <option>toxic_look_(typhos)</option>
+              <option>yellowish_skin</option>
+              <option>burning_micturition</option>
+              <option>sunken_eyes</option>
+              <option>skin_peeling</option>
+              <option>patches_in_throat</option>
+              <option>bruising</option>
+              <option>blister</option>
+              <option>drying_and_tingling_lips</option>
+              <option>neck_pain</option>
+              <option>diarrhoea</option>
+              <option>visual_disturbances</option>
+              <option>headache</option>
+              <option>irritability</option>
+              <option>fatigue</option>
+              <option>stiff_neck</option>
+              <option>hip_joint_pain</option>
+              <option>red_sore_around_nose</option>
+              <option>throat_irritation</option>
+              <option>scurring</option>
+              <option>constipation</option>
+              <option>vomiting</option>
+              <option>itching</option>
+              <option>abdominal_pain</option>
+              <option>inflammatory_nails</option>
+              <option>increased_appetite</option>
+              <option>receiving_blood_transfusion</option>
+              <option>small_dents_in_nails</option>
+              <option>pus_filled_pimples</option>
+              <option>fluid_overload</option>
+              <option>swelling_joints</option>
+              <option>irregular_sugar_level</option>
+              <option>cough</option>
+              <option>foul_smell_ofurine</option>
+              <option>pain_behind_the_eyes</option>
+              <option>red_spots_over_body</option>
+              <option>receiving_unsterile_injections</option>
+              <option>redness_of_eyes</option>
+              <option>depression</option>
+              <option>belly_pain</option>
+              <option>loss_of_appetite</option>
+              <option>brittle_nails</option>
+              <option>muscle_weakness</option>
+              <option>swollen_legs</option>
+              <option>history_of_alcohol_consumption</option>
+              <option>obesity</option>
+              <option>high_fever</option>
+              <option>watering_from_eyes</option>
+              <option>malaise</option>
+              <option>cold_hands_and_feets</option>
+              <option>mucoid_sputum</option>
+              <option>altered_sensorium</option>
+              <option>excessive_hunger</option>
+              <option>painful_walking</option>
+              <option>bloody_stool</option>
+              <option>enlarged_thyroid</option>
+              <option>mood_swings</option>
+              <option>cramps</option>
+              <option>fast_heart_rate</option>
+              <option>swelled_lymph_nodes</option>
+              <option>dehydration</option>
+              <option>acidity</option>
+              <option>weakness_in_limbs</option>
+              <option>loss_of_balance</option>
+              <option>continuous_feel_of_urine</option>
+              <option>yellow_crust_ooze</option>
+              <option>nodal_skin_eruptions</option>
+              <option>congestion</option>
+              <option>back_pain</option>
+              <option>visual_disturbances</option>
+              <option>dizziness</option>
+              <option>passage_of_gases</option>
+              <option>runny_nose</option>
+              <option>polyuria</option>
+              <option>anxiety</option>
+              <option>knee_pain</option>
+              <option>indigestion</option>
+              <option>distention_of_abdomen</option>
+              <option>swollen_extremeties</option>
+              <option>family_history</option>
+              <option>continuous_sneezing</option>
+              <option>irritation_in_anus</option>
+              <option>stomach_pain</option>
+              <option>ulcers_on_tongue</option>
+              <option>stomach_bleeding</option>
+              <option>weakness_of_one_body_side</option>
+              <option>movement_stiffness</option>
+              <option>sinus_pressure</option>
+              <option>silver_like_dusting</option>
+              <option>swollen_blood_vessels</option>
+              <option>bladder_discomfort</option>
+              <option>nausea</option>
+              <option>pain_in_anal_region</option>
+              <option>yellowing_of_eyes</option>
+              <option>prominent_veins_on_calf</option>
+              <option>lethargy</option>
+              <option>dischromic_patches</option>
+              <option>shivering</option>
+              <option>slurred_speech</option>
+
+          </select>
+        </div>
+
+        <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 text-lg">
+          ⚡ Predict Disease
+        </button>
+      </form>
+    </div>
+  </section>
+  
+
+  <section class="py-20 bg-gray-200">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">Why Choose Our Platform?</h2>
+        <p class="text-xl text-gray-700">Advanced AI technology meets medical expertise</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white shadow-md rounded-xl p-6 text-center">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <span class="text-blue-600 text-xl">👨‍⚕️</span>
+          </div>
+          <h3 class="font-bold text-lg">Expert Backed</h3>
+          <p class="text-gray-600 mt-2">Our AI models are trained on medical data reviewed by healthcare professionals.</p>
+        </div>
+
+        <div class="bg-white shadow-md rounded-xl p-6 text-center">
+          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <span class="text-purple-600 text-xl">⏱️</span>
+          </div>
+          <h3 class="font-bold text-lg">Instant Results</h3>
+          <p class="text-gray-600 mt-2">Get immediate insights into your symptoms without waiting for appointments.</p>
+        </div>
+
+        <div class="bg-white shadow-md rounded-xl p-6 text-center">
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <span class="text-green-600 text-xl">🔒</span>
+          </div>
+          <h3 class="font-bold text-lg">Privacy First</h3>
+          <p class="text-gray-600 mt-2">Your health data is encrypted and never shared with third parties.</p>
+        </div>
+
+        <div class="bg-white shadow-md rounded-xl p-6 text-center">
+          <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <span class="text-yellow-600 text-xl">⭐</span>
+          </div>
+          <h3 class="font-bold text-lg">Highly Accurate</h3>
+          <p class="text-gray-600 mt-2">Our AI achieves high accuracy rates in symptom-to-condition mapping.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="py-16 bg-gray-300">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto bg-white shadow-md rounded-xl p-8 text-center">
+        <h3 class="text-2xl font-bold text-red-600 mb-4">Medical Disclaimer</h3>
+        <p class="text-gray-600 mb-4">
+          This AI symptom checker is designed to provide general health information and should not be used 
+          as a substitute for professional medical advice, diagnosis, or treatment.
+        </p>
+        <p class="text-sm text-gray-500">
+          If you think you may have a medical emergency, call your doctor or emergency services immediately.
+        </p>
+      </div>
+    </div>
+  </section>
+  <footer class="py-12 bg-black text-white text-center">
+    <div class="container mx-auto px-6">
+      <h3 class="text-xl font-semibold mb-4">AI Medical Symptom Checker</h3>
+      <p class="text-white/70 mb-4">Empowering informed healthcare decisions with AI technology</p>
+      <p class="text-sm text-white/50">© 2024 AI Medical Platform. For educational purposes only.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    $(document).ready(function () {
+      $('#symptom1').select2({
+        placeholder: "Select symptoms",
+        allowClear: true
+      });
+    });
+  </script>
+
+</body>
+</html>

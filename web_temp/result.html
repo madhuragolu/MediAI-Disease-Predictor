@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prediction Result</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      padding: 30px;
+      text-align: center;
+    }
+    .result-box {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #0077b6;
+    }
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      text-align: left;
+    }
+    .precaution-item {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #333;
+    }
+    .back-button {
+      margin-top: 25px;
+      padding: 10px 20px;
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .back-button:hover {
+      background-color: #005f8f;
+    }
+  </style>
+</head>
+<body>
+  <div class="result-box">
+    <h1>Predicted Disease:</h1>
+    <h2>{{ prediction }}</h2>
+
+
+    {% if precautions %}
+        <div class="precautions">
+            <strong>Precautions:</strong>
+            <ul>
+                {% for precaution in precautions %}
+                    <li>{{ precaution }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+    <a href="/" class="back-button">Back to Home</a>
+  </div>
+</body>
+</html>
