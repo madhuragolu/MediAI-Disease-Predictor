@@ -2,49 +2,48 @@ from flask import Flask, render_template, request
 import joblib
 import pandas as pd
 
-# Flask app setup
-app = Flask(__name__, template_folder="web_temp")
+app = Flask(__name__, template_folder='web_temp')
+model = joblib.load('MediAI-Disease-Predictor/model.pkl')
+disease_encoder = joblib.load('MediAI-Disease-Predictor/Disease_encoder.pkl')
+feature_list = joblib.load('MediAI-Disease-Predictor/trained_features.pkl')
 
+precautions_df = pd.read_csv('MediAI-Disease-Predictor/dataset/symptom_precaution.csv')
 
+@app.route('/')
+def index():
+    """Render the home page."""
+    return render_template('index.html')
 
-model = joblib.load("MediAI-Disease-Predictor/p_app/model.pkl")
-disease_encoder = joblib.load("MediAI-Disease-Predictor/p_app/Disease_encoder.pkl")
-feature_list = joblib.load("MediAI-Disease-Predictor/p_app/trained_features.pkl")
-
-precaution_data = pd.read_csv("MediAI-Disease-Predictor/dataset/symptom_precaution.csv")
-
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-@app.route("/predict", methods=["POST"])
+@app.route('/predict', methods=['POST'])
 def predict():
-    if request.method == "POST":
-        sympt_txt = request.form.get("symptoms", "")
-        symptoms_entered = [sympt.strip().replace(" ", "_").lower() for sympt in sympt_txt.split(",")]
-        input_values = {feature: 0 for feature in feature_list}
-        for s in symptoms_entered:
-            if s in input_values:
-                input_values[s] = 1
-        df_input = pd.DataFrame([input_values])[feature_list]
-        pred_index = model.predict(df_input)[0]
-        disease_name = disease_encoder.inverse_transform([pred_index])[0]
-        matched_row = precaution_data[precaution_data["Disease"].str.strip() == disease_name.strip()]
+    """Handle symptom input and return prediction + precautions."""
+    symptoms_input = request.form.get('symptoms', '')
 
-        if not matched_row.empty:
-            row = matched_row.iloc[0]
-            precautions_list = [
-                str(row["Precaution_1"]),
-                str(row["Precaution_2"]),
-                str(row["Precaution_3"]),
-                str(row["Precaution_4"])
-            ]
-        else:
-            precautions_list = ["No specific precautions found"]
+    symptoms_list = [s.strip().replace(" ", "_").lower() for s in symptoms_input.split(',')]
+    input_data = {symptom: 0 for symptom in feature_list}
+    
+    for s in symptoms_list:
+        if s in input_data:
+            input_data[s] = 1
 
-        return render_template("result.html",
-                               prediction=disease_name,
-                               precautions=precautions_list)
+    input_df = pd.DataFrame([input_data])[feature_list]
 
-if __name__ == "__main__":
+    predicted_index = model.predict(input_df)[0]
+    predicted_disease = disease_encoder.inverse_transform([predicted_index])[0]
+
+    disease_data = precautions_df[precautions_df['Disease'].str.strip() == predicted_disease.strip()]
+    
+    if not disease_data.empty:
+        row = disease_data.iloc[0]
+        precautions = [str(row[f'Precaution_{i}']) for i in range(1, 5)]
+    else:
+        precautions = ["No precautions found"]
+
+    return render_template(
+        'result.html',
+        prediction=predicted_disease,
+        precautions=precautions
+    )
+
+if __name__ == '__main__':
     app.run(debug=True)
