@@ -2,10 +2,10 @@ from flask import Flask, render_template, request
 import joblib
 import pandas as pd
 
-app = Flask(__name__, template_folder='web_temp')
-model = joblib.load('MediAI-Disease-Predictor/model.pkl')
-disease_encoder = joblib.load('MediAI-Disease-Predictor/Disease_encoder.pkl')
-feature_list = joblib.load('MediAI-Disease-Predictor/trained_features.pkl')
+app = Flask(__name__, template_folder='web_temp', static_folder='static')
+model = joblib.load('MediAI-Disease-Predictor/pkl_files/model.pkl')
+disease_encoder = joblib.load('MediAI-Disease-Predictor/pkl_files/Disease_encoder.pkl')
+feature_list = joblib.load('MediAI-Disease-Predictor/pkl_files/trained_features.pkl')
 
 precautions_df = pd.read_csv('MediAI-Disease-Predictor/dataset/symptom_precaution.csv')
 
@@ -17,9 +17,8 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     """Handle symptom input and return prediction + precautions."""
-    symptoms_input = request.form.get('symptoms', '')
-
-    symptoms_list = [s.strip().replace(" ", "_").lower() for s in symptoms_input.split(',')]
+    
+    symptoms_list = request.form.getlist('symptoms')
     input_data = {symptom: 0 for symptom in feature_list}
     
     for s in symptoms_list:
@@ -46,4 +45,4 @@ def predict():
     )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host="0.0.0.0", port=5000) 
