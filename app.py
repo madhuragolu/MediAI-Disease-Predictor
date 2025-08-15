@@ -15,8 +15,9 @@ model = joblib.load(MODEL_PATH)
 disease_encoder = joblib.load(ENCODER_PATH)
 feature_list = joblib.load(FEATURES_PATH)
 
+PRECAUTIONS_CSV = BASE_DIR / "dataset" / "symptom_precaution.csv"
 
-precautions_df = pd.read_csv('MediAI-Disease-Predictor/dataset/symptom_precaution.csv')
+precautions_df = pd.read_csv(PRECAUTIONS_CSV)
 
 @app.route('/')
 def index():
