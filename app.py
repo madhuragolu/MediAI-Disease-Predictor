@@ -1,11 +1,20 @@
 from flask import Flask, render_template, request
 import joblib
 import pandas as pd
+from pathlib import Path
 
 app = Flask(__name__, template_folder='web_temp', static_folder='static')
-model = joblib.load('MediAI-Disease-Predictor/pkl_files/model.pkl')
-disease_encoder = joblib.load('MediAI-Disease-Predictor/pkl_files/Disease_encoder.pkl')
-feature_list = joblib.load('MediAI-Disease-Predictor/pkl_files/trained_features.pkl')
+
+
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "pkl_files" / "model.pkl"
+ENCODER_PATH = BASE_DIR / "pkl_files" / "Disease_encoder.pkl"
+FEATURES_PATH = BASE_DIR / "pkl_files" / "trained_features.pkl"
+
+model = joblib.load(MODEL_PATH)
+disease_encoder = joblib.load(ENCODER_PATH)
+feature_list = joblib.load(FEATURES_PATH)
+
 
 precautions_df = pd.read_csv('MediAI-Disease-Predictor/dataset/symptom_precaution.csv')
 
