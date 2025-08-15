@@ -7,9 +7,9 @@ app = Flask(__name__, template_folder='web_temp', static_folder='static')
 
 
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "pkl_files" / "model.pkl"
-ENCODER_PATH = BASE_DIR / "pkl_files" / "Disease_encoder.pkl"
-FEATURES_PATH = BASE_DIR / "pkl_files" / "trained_features.pkl"
+MODEL_PATH = BASE_DIR / "pkl_files" / "model1.pkl"
+ENCODER_PATH = BASE_DIR / "pkl_files" / "Disease_encoder1.pkl"
+FEATURES_PATH = BASE_DIR / "pkl_files" / "trained_features1.pkl"
 
 model = joblib.load(MODEL_PATH)
 disease_encoder = joblib.load(ENCODER_PATH)
