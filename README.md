@@ -26,6 +26,7 @@ Build a reliable AI assistant to assist users in identifying possible illnesses 
 - User-friendly interface
 - Lightweight and fast
 - Customizable disease dataset
+- ## Project Deployment link :https://mediai-disease-predictor.onrender.com
 
 ---
 
